@@ -3,7 +3,6 @@ from flask import render_template, redirect, url_for, request, json
 from .models import List, Item, User
 from .forms import SignupForm
 
-
 @app.route('/')
 def index():
 #    return render_template('index.html')
@@ -13,12 +12,14 @@ def index():
 def sign_up():
     form = SignupForm()
     if request.method == "GET":
-        return render_template('signup.html', form = form)
+        return render_template('signup.html', form=form)
     elif request.method == "POST":
         if form.validate() == False:
             return render_template('signup.html', form=form)
         else:
-            return "[1] Create a new user [2] sign in the user [3] redirect to the user's profile"
+            newuser = User(form.firstname.data, form.lastname.data, form.email.data, form.password.data)
+            db.session.add(newuser)
+            db.session.commit()
         
     
 @app.route('/lists', methods=["GET"])
