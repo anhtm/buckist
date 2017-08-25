@@ -7,7 +7,7 @@ class User(db.Model):
     first_name = db.Column(db.String(64))
     last_name = db.Column(db.String(64))
     email = db.Column(db.String(120), index=True, unique=True)
-    pwhash = db.Column(db.String(54))
+    pwdhash = db.Column(db.String(54))
     lists = db.relationship('List', backref='user', lazy='dynamic')
     
     def __init__(self,first_name,last_name, email, password):

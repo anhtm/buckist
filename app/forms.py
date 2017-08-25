@@ -5,9 +5,9 @@ from app.models import User
 from app import db
 
 class SignupForm(Form):
-    firstname = TextField("First name", [validators.Required("Please enter your first name.")])
-    lastname = TextField("Last name",  [validators.Required("Please enter your last name.")])
-    email = TextField("Email",  [validators.Required("Please enter your email address."), validators.Email("Please enter your email address.")])
+    firstname = TextField("First name", validators=[DataRequired()])
+    lastname = TextField("Last name", [validators.Required("Please enter your last name.")])
+    email = TextField("Email", [validators.Required("Please enter your email address."), validators.Email("Please enter your email address.")])
     password = PasswordField('Password', [validators.Required("Please enter a password.")])
     submit = SubmitField("Create account")
  
@@ -22,4 +22,29 @@ class SignupForm(Form):
         else:
             return True
 
+#class AddList(Form):
+#    list_name = TextField("New List", validators=[DataRequired()])
+#    submit = SubmitField("Create new list")
+#    
+#class AddItem(Form):
+#    item_content = TextField("New Item",validators=[DataRequired()])
+#    submit = SubmitField("Create new item")
 
+class SigninForm(Form):
+    email = TextField("Email", [validators.Required("Please enter your email address.")])
+    password = PasswordField("Password", [validators.Required("Please enter your password.")])
+    submit = SubmitField("Sign In")
+    
+    def __init__(self, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
+        
+    def validate(self):
+        if not Form.validate(self):
+            return False
+    
+        user = User.query.filter_by(email=self.email.data.lower()).first()
+        if user and user.check_password(self.password.data):
+            return True
+        else:
+            self.email.errors.append("Invalid e-mail or password")
+            return False
