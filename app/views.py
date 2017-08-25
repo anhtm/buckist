@@ -67,6 +67,6 @@ def profile():
     if user is None:
         return redirect(url_for('sign_in'))
     else:
-        return render_template('profile.html') #TODO: create profile.html 
+        return render_template('profile.html')
 
   
