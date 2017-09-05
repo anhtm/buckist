@@ -126,12 +126,27 @@ def update_item(id):
 
 @app.route('/renameitem/<int:id>', methods=["POST"])
 def rename_item(id):
-    pass
+    item = Item.query.get(id)
+    if 'item_content' in request.form:
+        item.content = request.form['item_content']
+        db.session.add(item)
+        db.session.commit()
+        return redirect(url_for('profile'))
 
-#@app.route('/deleteitem', methods=["POST"])
-##def delete_item:
-#    pass
-#
-#@app.route('/changestatus', methods=["POST"])
-#def change_status:
-#    pass
+@app.route('/deleteitem/<int:id>', methods=["POST"])
+def delete_item(id):
+    item = Item.query.get(id)
+    db.session.delete(item)
+    db.session.commit()
+    return redirect(url_for('profile'))
+
+@app.route('/changestatus/<int:id>', methods=["POST"])
+def change_status(id):
+    item = Item.query.get(id)
+    status = request.form['status']
+    if status == 'yes': 
+        item.is_done = True
+        db.session.add(item)
+        db.session.commit()
+        return redirect(url_for('profile'))
+        

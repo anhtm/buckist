@@ -13,7 +13,11 @@
             <input class='btn btn-info' type='submit' name='change_item_content' value="Edit">
         </form>
         
-        <form action='/changestatus/{{item.id}}' type='submit' name='change_status' value="Edit">
+        <form action='/changestatus/{{item.id}}' method='POST'>
+        Finished? <br>
+            <input type="radio" name="status" value="no" checked> No<br>
+            <input type="radio" name="status" value="yes"> Yes<br>
+            <input class='btn btn-info' type='submit' name='change_status' value="Submit">
         </form>
         
         <form action='/deleteitem/{{item.id}}' method='POST'>
