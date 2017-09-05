@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title> Edit or Delete List </title>
+         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    </head>
+    <body>
+        <h2> Update <strong> {{list.name}} </strong>: </h2>
+        <form action="/renamelist/{{list.id}}" method='POST'>
+        Name: <input type='text' name='list_name'> 
+        <br>
+        <br>
+            <input class='btn btn-info' type='submit' name='change_list_name' value="Edit">
+        </form>
+        <form action='/deletelist/{{list.id}}' method='POST'>
+            <input class='btn btn-primary' type='submit' name='delete_list' value="Delete">
+        </form>
+        <a href="{{ url_for('add_item', listid=list.id)}}"> Add Item </a>
+        <a href='/profile'> Cancel </a>
+    </body>
+</html>

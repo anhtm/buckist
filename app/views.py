@@ -1,5 +1,5 @@
 from app import app, db
-from flask import render_template, redirect, url_for, request, json, flash, session
+from flask import render_template, redirect, url_for, request, json, flash, session, g
 from .models import List, Item, User
 from .forms import SignupForm, SigninForm
 
@@ -24,9 +24,9 @@ def sign_up():
                 newuser = User(form.firstname.data, form.lastname.data, form.email.data, form.password.data)
                 db.session.add(newuser)
                 db.session.commit()
-                flash('You have successfully signed up!')
                 session['email'] = newuser.email
                 session['firstname'] = newuser.first_name
+                session['id'] = newuser.id
                 return redirect(url_for('profile')) 
 
 
@@ -63,10 +63,59 @@ def profile():
         return redirect(url_for('sign_in'))
  
     user = User.query.filter_by(email = session['email']).first()
- 
     if user is None:
         return redirect(url_for('sign_in'))
     else:
-        return render_template('profile.html')
+        return render_template('profile.html', user=user, lists=user.lists, items=user.items)
 
-  
+@app.route('/newlist', methods=["GET", "POST"])
+def add_list():
+
+    user = User.query.filter_by(email = session['email']).first()
+    if request.method == 'GET':
+        return render_template('add_list.html', list=list)
+    elif request.method == 'POST':
+        list_name = request.form['list_name']
+        new_list = List(name=list_name, user_id=user.id)
+        db.session.add(new_list)
+        db.session.commit()
+        return redirect(url_for('profile'))
+
+
+@app.route('/updatelist/<int:id>', methods=["GET"])
+def update_list(id):
+
+    list = List.query.get(id)
+    return render_template('update_list.html', list=list)
+    
+@app.route('/renamelist/<int:id>', methods=["POST"])
+def rename_list(id):
+    list = List.query.get(id)
+    if 'list_name' in request.form:
+        list.name = request.form['list_name']
+        db.session.add(list)
+        db.session.commit()
+        return redirect(url_for('profile'))
+
+         
+@app.route('/deletelist/<int:id>', methods=["POST"])
+def delete_list(id):
+    list = List.query.get(id)
+    db.session.delete(list)
+    db.session.commit()
+    return redirect(url_for('profile'))
+
+
+@app.route('/additem/<int:listid>', methods=["GET", "POST"])
+def add_item(listid):
+    list = List.query.get(listid)
+    user = User.query.filter_by(email = session['email']).first()
+    if request.method == 'GET':
+        return render_template('add_item.html', list=list)
+    elif request.method == 'POST':
+        item_content = request.form['item_content']
+        new_item = Item(content=item_content, list_id=list.id, user_id=user.id)
+        db.session.add(new_item)
+        db.session.commit()
+        return redirect(url_for('profile'))
+        

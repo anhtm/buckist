@@ -9,6 +9,7 @@ class User(db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     pwdhash = db.Column(db.String(54))
     lists = db.relationship('List', backref='user', lazy='dynamic')
+    items = db.relationship('Item', backref='user', lazy='dynamic')
     
     def __init__(self,first_name,last_name, email, password):
         self.first_name = first_name.title()
@@ -29,7 +30,7 @@ class User(db.Model):
 class List(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
-    tasks = db.relationship('Item', backref='list', lazy='dynamic')
+    items = db.relationship('Item', backref='list', lazy='dynamic')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
     def __repr__(self):

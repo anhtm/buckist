@@ -2,6 +2,22 @@
 {% block content %}
   <div class="jumbo">
     <h2>Profile<h2>
-    <h3>This is {{ session['firstname'] }}'s profile page<h3>
+    <h3>This is {{ user.first_name }}'s profile page<h3>
+  </div>
+  <div>
+    <h3>Your Bucket Lists</h3>
+    {% for list in lists %}
+            <ol>
+                <li> {{list.name}} | <a href="{{ url_for('update_list', id=list.id)}}"> Update List</a> </li>
+            </ol>
+                {% for item in items %}
+                <ul>
+                <li> {{item.content}} </li>
+                </ul>
+                {% endfor %}
+    {% endfor %}
+  </div>
+  <div>
+    <a href="{{ url_for('add_list') }}">Create new list</a>
   </div>
 {% endblock %}

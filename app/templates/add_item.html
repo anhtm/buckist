@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title> Add Task </title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    </head>
+    <body>
+        <h1> Add a new item to list: {{list.name}} </h1>
+        <form action='/additem/{{list.id}}' method="POST">
+            Content: <input type='text' name='item_content'> <br>
+            <input type='submit' value="Add">
+        </form>
+    </body>
