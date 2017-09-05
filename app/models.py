@@ -36,6 +36,7 @@ class List(db.Model):
     def __repr__(self):
         return '<List %r>' % (self.name)
     
+    
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(264), nullable=False)

@@ -66,7 +66,7 @@ def profile():
     if user is None:
         return redirect(url_for('sign_in'))
     else:
-        return render_template('profile.html', user=user, lists=user.lists, items=user.items)
+        return render_template('profile.html', user=user, lists=user.lists)
 
 @app.route('/newlist', methods=["GET", "POST"])
 def add_list():
@@ -118,4 +118,20 @@ def add_item(listid):
         db.session.add(new_item)
         db.session.commit()
         return redirect(url_for('profile'))
-        
+
+@app.route('/updateitem/<int:id>', methods=["GET"])
+def update_item(id):
+    item = Item.query.get(id)
+    return render_template('update_item.html', item=item)
+
+@app.route('/renameitem/<int:id>', methods=["POST"])
+def rename_item(id):
+    pass
+
+#@app.route('/deleteitem', methods=["POST"])
+##def delete_item:
+#    pass
+#
+#@app.route('/changestatus', methods=["POST"])
+#def change_status:
+#    pass

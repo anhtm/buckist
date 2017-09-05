@@ -8,11 +8,11 @@
     <h3>Your Bucket Lists</h3>
     {% for list in lists %}
             <ol>
-                <li> {{list.name}} | <a href="{{ url_for('update_list', id=list.id)}}"> Update List</a> </li>
+                <li> {{list.name}} | <a href='/updatelist/{{list.id}}'> Update List</a> </li>
             </ol>
-                {% for item in items %}
+                {% for item in list.items %}
                 <ul>
-                <li> {{item.content}} </li>
+                <li> {{item.content}} | <a href='/updateitem/{{item.id}}'> Update</a> </li>
                 </ul>
                 {% endfor %}
     {% endfor %}

@@ -22,13 +22,6 @@ class SignupForm(Form):
         else:
             return True
 
-#class AddList(Form):
-#    list_name = TextField("New List", validators=[DataRequired()])
-#    submit = SubmitField("Create new list")
-#    
-#class AddItem(Form):
-#    item_content = TextField("New Item",validators=[DataRequired()])
-#    submit = SubmitField("Create new item")
 
 class SigninForm(Form):
     email = TextField("Email", [validators.Required("Please enter your email address.")])
