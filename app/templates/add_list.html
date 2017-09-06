@@ -1,10 +1,5 @@
-
-<html>
-    <head>
-        <title> Add List </title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-    </head>
-    <body>
+{% extends "base.html" %}
+{% block content %}
         <h1 class='text-center'> Add a new list here: </h1>
         <form class='text-center' action='/newlist' method="POST">
             Name: <input type='text' name = 'list_name'> 
@@ -13,5 +8,4 @@
             <input class='btn btn-primary' type='submit' value="Add">
             <a href="{{ url_for('profile') }}""> Cancel </a> 
         </form>
-    </body>
-</html>
+{% endblock %}

@@ -1,9 +1,5 @@
-<html>
-    <head>
-        <title> Update Item </title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-    </head>
-    <body>
+{% extends "base.html" %}
+{% block content %}
         <h2> Update <strong> {{item.content}} </strong>: </h2>
         
         <form action="/renameitem/{{item.id}}" method='POST'>
@@ -24,5 +20,4 @@
             <input class='btn btn-primary' type='submit' name='delete_item' value="Delete">
         </form>
         <a href='/profile'> Cancel </a>
-    </body>
-</html>
+{% endblock %}

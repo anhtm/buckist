@@ -1,24 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="jumbo">
-    <h2>Profile<h2>
-    <h3>This is {{ user.first_name }}'s profile page<h3>
-  </div>
   <div>
-    <h3>Your Bucket Lists</h3>
-    {% for list in lists %}
-            <ol>
-                <li> {{list.name}} | <a href='/updatelist/{{list.id}}'> Update List</a> </li>
-            </ol>
-                {% for item in list.items %}
-                <ul>
-                <li> {{item.content}} | Finished? {{item.is_done}} <br>
-                <a href='/updateitem/{{item.id}}'> Update</a> </li>
-                </ul>
-                {% endfor %}
-    {% endfor %}
+    <h3 class="subtitle">Hi {{ user.first_name }}, Welcome Back!<h3>
   </div>
-  <div>
-    <a href="{{ url_for('add_list') }}">Create new list</a>
+  
+  <div class="lists container">
+    
+  <div class="columns is-multiline">
+  {% for list in lists %}
+    <div class="column is-one-third">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          {{list.name}}
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+        {% for item in list.items %}
+          <li>{{item.content}} | Finished? {{item.is_done}} | <a href='/updateitem/{{item.id}}'> Update</a> </li>
+        {% endfor %}
+        </div>
+      </div>
+      <footer class="card-footer">
+        <a class="card-footer-item" href="{{ url_for('add_item', listid=list.id)}}"> Add Item </a>
+        <a class="card-footer-item" href='/updatelist/{{list.id}}'> Update List</a>
+      </footer>
+    </div>
+    </div>
+     {% endfor %}
+     </div>
+
+
+  <a href="{{ url_for('add_list') }}"><i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i></a>
+   
+  
   </div>
 {% endblock %}

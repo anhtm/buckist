@@ -1,23 +1,24 @@
-<html>
-    <head>
-        <title> Update List </title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-    </head>
-    <body>
+{% extends "base.html" %}
+{% block content %}
         <h2> Update <strong> {{list.name}} </strong>: </h2>
         
-        <form action="/renamelist/{{list.id}}" method='POST'>
-        Name: <input type='text' name='list_name'> 
-        <br>
-        <br>
-            <input class='btn btn-info' type='submit' name='change_list_name' value="Edit">
+         <div class="field">
+    <label class="label">Name</label>
+    <div class="control">
+      <form action="/renamelist/{{list.id}}" method='POST'>
+        <input class="input" type='text' name='list_name'  placeholder="Change Your List Name"> 
+        <input class="button is-primary" type='submit' name='change_list_name' value='Edit'>
         </form>
-        
-        <form action='/deletelist/{{list.id}}' method='POST'>
-            <input class='btn btn-primary' type='submit' name='delete_list' value="Delete">
+    </div>
+      
+  </div>
+
+  <div class="field is-grouped">
+    <p class="control">
+      <form action='/deletelist/{{list.id}}' method='POST'>
+            <input class='button is-danger' type='submit' name='delete_list' value="Delete">
         </form>
-        
-        <a href="{{ url_for('add_item', listid=list.id)}}"> Add Item </a> </br>
-        <a href='/profile'> Cancel </a>
-    </body>
-</html>
+    </p>
+    <p class="control"><a class="button is-light" href="/profile">Cancel</a> </p>
+  </div>
+{% endblock %}

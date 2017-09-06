@@ -91,11 +91,13 @@ def update_list(id):
 @app.route('/renamelist/<int:id>', methods=["POST"])
 def rename_list(id):
     list = List.query.get(id)
-    if 'list_name' in request.form:
+    if 'list_name' in request.form and request.form['list_name'] != None:
         list.name = request.form['list_name']
         db.session.add(list)
         db.session.commit()
         return redirect(url_for('profile'))
+    else:
+        flash('Empty Input!')
 
          
 @app.route('/deletelist/<int:id>', methods=["POST"])
@@ -127,11 +129,13 @@ def update_item(id):
 @app.route('/renameitem/<int:id>', methods=["POST"])
 def rename_item(id):
     item = Item.query.get(id)
-    if 'item_content' in request.form:
+    if 'item_content' in request.form and request.form != None:
         item.content = request.form['item_content']
         db.session.add(item)
         db.session.commit()
         return redirect(url_for('profile'))
+    else:
+        flash('Empty Input!')
 
 @app.route('/deleteitem/<int:id>', methods=["POST"])
 def delete_item(id):

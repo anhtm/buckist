@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="jumbo">
-    <h2>Welcome to the Flask app<h2>
-    <h3>This is the home page for the Flask app<h3>
+    <h2>Welcome to Buckist!<h2>
+    <h3>About Section<h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>    
+  </div>
+  
+  <div>
+    <h3>New to Buckist? Sign Up now!</h3>
+    <a href="{{url_for('sign_up')}}">Sign Up</a> &nbsp;
+    <a href="{{url_for('sign_in')}}">Sign In</a>
   </div>
 {% endblock %}
