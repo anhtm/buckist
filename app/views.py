@@ -1,7 +1,7 @@
 from app import app, db
 from flask import render_template, redirect, url_for, request, json, flash, session, g
 from .models import List, Item, User
-from .forms import SignupForm, SigninForm
+from .forms import SignupForm, SigninForm, UpdateItemForm
 
 
 @app.route('/')
@@ -91,13 +91,11 @@ def update_list(id):
 @app.route('/renamelist/<int:id>', methods=["POST"])
 def rename_list(id):
     list = List.query.get(id)
-    if 'list_name' in request.form and request.form['list_name'] != None:
+    if 'list_name' in request.form:
         list.name = request.form['list_name']
         db.session.add(list)
         db.session.commit()
-        return redirect(url_for('profile'))
-    else:
-        flash('Empty Input!')
+        return json.dumps({'status':'OK','list_name':list.name});
 
          
 @app.route('/deletelist/<int:id>', methods=["POST"])
@@ -126,23 +124,16 @@ def update_item(id):
     item = Item.query.get(id)
     return render_template('update_item.html', item=item)
 
+
 @app.route('/renameitem/<int:id>', methods=["POST"])
 def rename_item(id):
     item = Item.query.get(id)
-    if 'item_content' in request.form and request.form != None:
+    if 'item_content' in request.form:
         item.content = request.form['item_content']
         db.session.add(item)
         db.session.commit()
         return redirect(url_for('profile'))
-    else:
-        flash('Empty Input!')
 
-@app.route('/deleteitem/<int:id>', methods=["POST"])
-def delete_item(id):
-    item = Item.query.get(id)
-    db.session.delete(item)
-    db.session.commit()
-    return redirect(url_for('profile'))
 
 @app.route('/changestatus/<int:id>', methods=["POST"])
 def change_status(id):
@@ -154,3 +145,9 @@ def change_status(id):
         db.session.commit()
         return redirect(url_for('profile'))
         
+@app.route('/deleteitem/<int:id>', methods=["POST"])
+def delete_item(id):
+    item = Item.query.get(id)
+    db.session.delete(item)
+    db.session.commit()
+    return redirect(url_for('profile'))       

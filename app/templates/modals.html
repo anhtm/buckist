@@ -1,0 +1,107 @@
+{% extends "base.html" %} 
+{% block content %}
+<div class="section"> 
+    <h3>Hi {{ user.first_name }}, Welcome Back!</h3> 
+</div>
+  
+<div class="lists container">
+    
+  <div class="columns is-multiline">
+  {% for list in lists %}
+    <div class="column is-one-third">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">{{list.name}}</p>
+
+        <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger">
+                <button class="button is-white" aria-haspopup="true" aria-controls="dropdown-menu">
+                     <a class="card-header-icon">
+                    <span class="icon"> <i class="fa fa-angle-down"></i> </span>
+                    </a>
+                </button>
+            </div>
+             <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                      <a id="{{list.id}}" class="dropdown-item edit-list">Edit</a>
+                      <a id="delete-list" class="dropdown-item">Delete
+                        <form id="delete-form" action='/deletelist/{{list.id}}' method='POST'>
+                            <input type='hidden' name='delete_list' value="Delete">
+                        </form>
+                      </a>
+                      <a href="#" class="dropdown-item">Share</a>
+                </div>
+            </div>
+         </div>
+        
+      </header>
+      <div class="card-content">
+        <div class="content">
+        {% for item in list.items %}
+          <p> <i class="fa fa-square-o checkbox" aria-hidden="true"></i> &nbsp; {{item.content}} | {{item.is_done}} <a href='/updateitem/{{item.id}}'> Update</a> </p>
+        {% endfor %}
+        </div>
+      </div>
+      <footer class="card-footer">
+        <a class="card-footer-item" href="{{ url_for('add_item', listid=list.id)}}"> Add Item </a>
+      </footer>
+    </div>
+    </div>
+    
+
+     {% endfor %}
+     </div>
+     <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                  <h2 class="modal-card-title"> Edit List Name </h2>
+                </header>
+                <section class="modal-card-body">
+                   <div class="field is-grouped">
+                      <form class="rename-form" role="form">
+                              <div class="control">
+                                <input id="inputListName" class="input" type='text' name='list_name'  placeholder="Change Your List Name" required> 
+                              </div>
+                              <div class="control">
+                                <button id="rename-btn" class="button is-primary" type='submit' name='change_list_name'>Edit</button>
+                              </div>
+                        </form>
+                  </div>
+                </section>
+            </div>
+            <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+     
+
+  <a href="{{ url_for('add_list') }}"><i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i></a>
+   
+  
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script> 
+    $(document).ready(function() {
+        $('#delete-list').click(function() {
+            $('#delete-form').submit();
+        })
+        
+        $('.edit-list').click(function() {
+            $('.modal').addClass("is-active");
+            var listID = $(this).attr('id');
+            $('#rename-btn').click(function(){
+        		var list_name = $('#inputListName').val();
+        		$.ajax({
+        			url: '/renamelist/' + listID,
+        			data: $('form').serialize(),
+        			type: 'POST'
+            });
+        });
+        $(".modal-close").click(function() {
+           $(".modal").removeClass("is-active");
+        });
+        
+        });
+    });
+    </script>
+{% endblock %}
