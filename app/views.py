@@ -68,25 +68,16 @@ def profile():
     else:
         return render_template('profile.html', user=user, lists=user.lists)
 
-@app.route('/newlist', methods=["GET", "POST"])
+@app.route('/newlist', methods=["POST"])
 def add_list():
 
     user = User.query.filter_by(email = session['email']).first()
-    if request.method == 'GET':
-        return render_template('add_list.html', list=list)
-    elif request.method == 'POST':
-        list_name = request.form['list_name']
-        new_list = List(name=list_name, user_id=user.id)
-        db.session.add(new_list)
-        db.session.commit()
-        return redirect(url_for('profile'))
+    list_name = request.form['newlist_name']
+    new_list = List(name=list_name, user_id=user.id)
+    db.session.add(new_list)
+    db.session.commit()
+    return json.dumps({'status':'OK','new_list':new_list})
 
-
-@app.route('/updatelist/<int:id>', methods=["GET"])
-def update_list(id):
-
-    list = List.query.get(id)
-    return render_template('update_list.html', list=list)
     
 @app.route('/renamelist/<int:id>', methods=["POST"])
 def rename_list(id):
@@ -95,7 +86,7 @@ def rename_list(id):
         list.name = request.form['list_name']
         db.session.add(list)
         db.session.commit()
-        return json.dumps({'status':'OK','list_name':list.name});
+        return json.dumps({'status':'OK','list_name':list.name})
 
          
 @app.route('/deletelist/<int:id>', methods=["POST"])
