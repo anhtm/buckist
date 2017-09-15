@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+  <h2 class="title">Sign In</h2>
+ 
+  {% for message in form.email.errors %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+   
+  {% for message in form.password.errors %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+   
+  <form action="{{ url_for('sign_in') }}" method=post>
+    {{ form.hidden_tag() }}
+     
+    {{ form.email.label }}
+    <br>
+    {{ form.email }}
+    <br> 
+    {{ form.password.label }}
+    <br>
+    {{ form.password }}
+    <br>
+    <input type="submit" value="Create Account">
+  </form>
+     
+{% endblock %}

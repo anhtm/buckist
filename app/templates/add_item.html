@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+        <h1> Add a new item to list: {{list.name}} </h1>
+        <form action='/additem/{{list.id}}' method="POST">
+            Content: <input type='text' name='item_content' required> <br>
+            <input type='submit' value="Add">
+        </form>
+        <a href="/updatelist/{{list.id}}">Cancel</a>
+{% endblock %}

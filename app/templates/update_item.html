@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+        <h2> Update <strong> {{item.content}} </strong>: </h2>
+
+    
+        <form action="/renameitem/{{item.id}}" method='POST'>
+        Content: <input type='text' name='item_content' required> 
+        <br>
+        <br>
+            <input class='btn btn-info' type='submit' name='change_item_content' value="Edit">
+        </form>
+        
+        <form action='/changestatus/{{item.id}}' method='POST'>
+        Finished? <br>
+            <input type="radio" name="status" value="no" checked> No<br>
+            <input type="radio" name="status" value="yes"> Yes<br>
+            <input class='btn btn-info' type='submit' name='change_status' value="Submit">
+        </form>
+        
+        <form action='/deleteitem/{{item.id}}' method='POST'>
+            <input class='btn btn-primary' type='submit' name='delete_item' value="Delete">
+        </form>
+        <a href='/profile'> Cancel </a>
+{% endblock %}
