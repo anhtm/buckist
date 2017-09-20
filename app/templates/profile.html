@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <div class="section">
-  <h3>Hi {{ user.first_name }}, Welcome Back!</h3>
+  <h3 class="title">Hi {{ user.first_name }}, Welcome Back!</h3>
 </div>
 
 <div class="lists container">
@@ -10,7 +10,7 @@
     <div class="column is-one-third">
       <div class="card a-list">
         <header class="card-header">
-          <p id="l{{list.id}}" class="card-header-title">{{list.name}}</p>
+          <p id="{{list.id}}" class="card-header-title">{{list.name}}</p>
 
           <div class="dropdown is-hoverable">
             <div class="dropdown-trigger">
@@ -22,7 +22,7 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
               <div class="dropdown-content">
-                <a id="{{list.id}}" href="#editlist-modal" class="dropdown-item edit-list">Edit</a>
+                <a href="#editlist-modal" class="dropdown-item edit-list">Edit</a>
                 <a id="delete-list" class="dropdown-item">
                   <form id="delete-form" action='/deletelist/{{list.id}}' method='POST'>
                     <input type='submit' name='delete_list' value="Delete">
@@ -37,13 +37,17 @@
         <div class="card-content">
           <div class="content">
             {% for item in list.items %}
-            <p> <i class="fa fa-square-o checkbox" aria-hidden="true"></i> &nbsp; {{item.content}} | {{item.is_done}} <a href='/updateitem/{{item.id}}'> Update</a> </p>
+            <p id="{{item.id}}" class="item"> 
+            <!-- <i class="fa fa-square-o checkbox" aria-hidden="true"></i>  --> {{item.content}} | {{item.is_done}} 
+             | <a class="edit-item" id="edit-item{{item.id}}" href="#edititem-box">Edit</a> |
+             <a class="delete-item">Delete</a>
+            </p>
             {% endfor %}
           </div>
         </div>
 
         <footer class="card-footer">
-          <a class="card-footer-item" href="{{ url_for('add_item', listid=list.id)}}"> Add Item </a>
+          <a class="card-footer-item add-item"> Add Item </a>
         </footer>
 
       </div>
@@ -54,17 +58,36 @@
   </div>
 
   <a class="add-btn" href="#addlist-modal"> <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i></a>
-  {% block addlistmodal %} 
+
+  {% block addlistModal %} 
     {% include "addlist_modal.html" %} 
   {% endblock %}
   
-  {% block listmodal%} 
-    {% include "editlist_modal.html" %} 
+  {% block editlistModal%}
+     {% include "editlist_modal.html" %} 
   {% endblock %}
+
+
+<!-- Add Item Modal -->
+  {% block additemModal %}
+    {% include "add_item.html" %}
+  {% endblock %}
+
+
+<!-- Edit Item Modal -->
+
+  {% block edititemModal %}
+    {% include "edit_item.html" %}
+  {% endblock %}
+
+
+  <!-- <button id="turn-on-edit">Turn on edit form</button> -->
+
 </div>
 
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script type="text/javascript" src="{{url_for('static', filename='profile.js')}}"></script>
 {% endblock %}
