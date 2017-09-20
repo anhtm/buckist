@@ -135,10 +135,11 @@ $(document).ready(function() {
 
 
       // Delete Item Func
-      $('.delete-item').click(function() {
-        var itemid = $(this).parent().attr('id');
 
-       })
+      $('#delete-item').click(function() {
+        window.alert('Are You Sure?');
+        $('#delete-item-form').submit();
+      });
 
     });
   });

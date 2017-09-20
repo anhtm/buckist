@@ -32,7 +32,7 @@ def sign_up():
 
 @app.route('/signin', methods=['GET', 'POST'])
 def sign_in():
-    form = SigninFomr()
+    form = SigninForm()
     if 'email' in session:
         return redirect(url_for('profile'))
     else:

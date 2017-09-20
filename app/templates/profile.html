@@ -1,4 +1,7 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block main %}
+
+{% block content %}
 <div class="section">
   <h3 class="title">Hi {{ user.first_name }}, Welcome Back!</h3>
 </div>
@@ -22,10 +25,10 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
               <div class="dropdown-content">
-                <a href="#editlist-modal" class="dropdown-item edit-list">Edit</a>
+                <a class="dropdown-item edit-list">Edit</a>
                 <a id="delete-list" class="dropdown-item">
                   <form id="delete-form" action='/deletelist/{{list.id}}' method='POST'>
-                    <input type='submit' name='delete_list' value="Delete">
+                    <button class="button is-white" type='submit' name='delete_list'>Delete</button>
                   </form>
                 </a>
                 <a href="#" class="dropdown-item">Share</a>
@@ -40,7 +43,11 @@
             <p id="{{item.id}}" class="item"> 
             <!-- <i class="fa fa-square-o checkbox" aria-hidden="true"></i>  --> {{item.content}} | {{item.is_done}} 
              | <a class="edit-item" id="edit-item{{item.id}}" href="#edititem-box">Edit</a> |
-             <a class="delete-item">Delete</a>
+             <a id="delete-item">
+               <form id="delete-item-form" role="form" action="/deleteitem/{{item.id}}" method="POST">
+                 <button id="delete-item-btn" class="button is-white" type="submit" name='delete-btn'> Delete </button>
+               </form>
+             </a>
             </p>
             {% endfor %}
           </div>
@@ -58,6 +65,8 @@
   </div>
 
   <a class="add-btn" href="#addlist-modal"> <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i></a>
+</div>
+{% endblock %}
 
   {% block addlistModal %} 
     {% include "addlist_modal.html" %} 
@@ -83,11 +92,9 @@
 
   <!-- <button id="turn-on-edit">Turn on edit form</button> -->
 
-</div>
 
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-<script type="text/javascript" src="{{url_for('static', filename='profile.js')}}"></script>
 {% endblock %}
+
+
+
+

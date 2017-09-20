@@ -8,7 +8,7 @@ class SignupForm(Form):
     firstname = TextField("First name", [validators.Required("Please enter your first name.")])
     lastname = TextField("Last name", [validators.Required("Please enter your last name.")])
     email = TextField("Email", [validators.Required("Please enter your email address."), validators.Email("Please enter your email address.")])
-    password = PasswordField('Password', [validators.Required("Please enter a password.")])
+    password = PasswordField('Password', [validators.Required("Please enter a password."), validators.Length(min=8, max=25)])
     submit = SubmitField("Create account")
  
     def validate(self):
