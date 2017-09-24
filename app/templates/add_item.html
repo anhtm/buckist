@@ -1,9 +1,21 @@
-{% extends "base.html" %}
-{% block content %}
-        <h1> Add a new item to list: {{list.name}} </h1>
-        <form action='/additem/{{list.id}}' method="POST">
-            Content: <input type='text' name='item_content' required> <br>
-            <input type='submit' value="Add">
+<div id="additem-modal" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card box">
+    <header class="modal-card-head">
+      <h2 class="modal-card-title"> Add Item </h2>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <form class="add-item-form" role="form">
+          <div class="control">
+            <input class="input" type='text' name='item_content'  placeholder="Add Item" required> 
+          </div>
+          <div class="control">
+            <button id="add-item-btn" class="button is-primary" type='submit' name='change_list_name' data-listId="">Add</button>
+          </div>
         </form>
-        <a href="/updatelist/{{list.id}}">Cancel</a>
-{% endblock %}
+      </div>
+      <a class="button" id="close-additem-btn">Cancel</a>
+    </section>
+  </div>
+</div>

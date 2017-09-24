@@ -1,17 +1,24 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block main %}
+
+{% block content %}
 <div class="section">
-  <h3>Hi {{ user.first_name }}, Welcome Back!</h3>
+  <h3 class="title">Hi {{ user.first_name }}, Welcome Back!</h3>
 </div>
 
 <div class="lists container">
-
+  <!-- Lists -->
   <div class="columns is-multiline">
+
     {% for list in lists %}
     <div class="column is-one-third">
       <div class="card a-list">
-        <header class="card-header">
-          <p id="l{{list.id}}" class="card-header-title">{{list.name}}</p>
 
+      <!-- List Header -->
+        <header class="card-header">
+          <p id="{{list.id}}" class="card-header-title">{{list.name}}</p>
+
+          <!-- Dropdown V button -->
           <div class="dropdown is-hoverable">
             <div class="dropdown-trigger">
               <button class="button is-white" aria-haspopup="true" aria-controls="dropdown-menu">
@@ -20,51 +27,122 @@
                 </a>
               </button>
             </div>
+
+            <!-- Dropdown Menu & functions -->
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
               <div class="dropdown-content">
-                <a id="{{list.id}}" href="#editlist-modal" class="dropdown-item edit-list">Edit</a>
-                <a id="delete-list" class="dropdown-item">
-                  <form id="delete-form" action='/deletelist/{{list.id}}' method='POST'>
-                    <input type='submit' name='delete_list' value="Delete">
-                  </form>
-                </a>
+
+                <a class="dropdown-item edit-list">Edit</a>
+
+                <!-- Delete list -->
+                <a id="delete-list" class="delete-list dropdown-item"> Delete </a>
+
+                <!-- Share -->
                 <a href="#" class="dropdown-item">Share</a>
               </div>
             </div>
           </div>
         </header>
 
+        <!-- Items -->
         <div class="card-content">
-          <div class="content">
+
+        <!-- Item Content - NOT COMPLETED -->
+          <ul>
             {% for item in list.items %}
-            <p> <i class="fa fa-square-o checkbox" aria-hidden="true"></i> &nbsp; {{item.content}} | {{item.is_done}} <a href='/updateitem/{{item.id}}'> Update</a> </p>
+              {% if not item.is_done %}
+              
+               <li id="{{item.id}}" class="item">
+
+                <div class="collapsible-header">
+                  {{item.content}} | {{ item.is_done}}
+
+                  <!-- Functions -->
+                    {% include "item_functions.html" %}
+
+                </div>
+              </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+      </div>
+
+
+          <!-- Completed Item -->
+        <div class="card-content">
+          <div class="collapsible" data-collapsible="accordion">
+            <div class="collapsible-header"
+              <h3 class="subtitle completed-items"> Completed </h3>
+            </div>
+            {% for item in list.items %}
+              {% if item.is_done  %}
+              <div class="collapsible-body">
+                <ul>
+                <li id="{{item.id}}" class="item">
+                  {{item.content}} | {{ item.is_done}}
+                
+                <!-- Functions -->
+                  {% include "item_functions.html" %}
+                </li>
+                </ul>
+              </div>
+              {% endif %}
             {% endfor %}
           </div>
+
         </div>
 
-        <footer class="card-footer">
-          <a class="card-footer-item" href="{{ url_for('add_item', listid=list.id)}}"> Add Item </a>
+        <!-- Add Item -->
+        <footer class="card-content">
+          <a class="add-item" href="#additemPointer"> Add Item </a>
         </footer>
 
       </div>
     </div>
-
-
     {% endfor %}
+
   </div>
 
-  <a class="add-btn" href="#addlist-modal"> <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i></a>
-  {% block addlistmodal %} 
-    {% include "addlist_modal.html" %} 
-  {% endblock %}
-  
-  {% block listmodal%} 
-    {% include "editlist_modal.html" %} 
-  {% endblock %}
+  <!-- Add List -->
+  <a class="add-btn"> <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i></a>
+
 </div>
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="{{url_for('static', filename='profile.js')}}"></script>
 {% endblock %}
+  
+  <!-- Delete List Form -->
+  <form class="hidden delete-list-form" role="form">
+    <input type="submit" value="Delete">
+  </form>
+
+
+  <!-- Delete Item Form -->
+  <form class="hidden delete-item-form" role="form">
+     <input id="delete-item-btn" type="submit" value="Delete">
+  </form>
+
+  
+  <!-- Add List Modal -->
+  
+    {% include "addlist_modal.html" %} 
+  
+  <!-- Edit List Modal -->
+
+     {% include "editlist_modal.html" %} 
+
+  <!-- Add Item Modal -->
+     {% include "add_item.html" %}
+
+  <!-- Edit Item Modal -->
+  
+    {% include "edit_item.html" %}
+  
+  <!-- Change Status Modal -->
+  
+    {% include "changestatus_modal.html" %}
+  
+
+{% endblock %}
+
+
+
+

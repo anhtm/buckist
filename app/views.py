@@ -32,7 +32,7 @@ def sign_up():
 
 @app.route('/signin', methods=['GET', 'POST'])
 def sign_in():
-    form = SigninFomr()
+    form = SigninForm()
     if 'email' in session:
         return redirect(url_for('profile'))
     else:
@@ -74,48 +74,42 @@ def add_list():
     user = User.query.filter_by(email = session['email']).first()
     if 'newlist_name' in request.form:
         list_name = request.form['newlist_name']
-        if list_name != None:
+        if list_name != '':
             new_list = List(name=list_name, user_id=user.id)
             db.session.add(new_list)
             db.session.commit()
-            return json.dumps({'status':'OK','new_list':new_list})
+            return json.dumps({'status':'OK','new_list_name':new_list.name})
 
     
 @app.route('/renamelist/<int:id>', methods=["POST"])
 def rename_list(id):
-    list = List.query.get(id)
+    chosen_list = List.query.get(id)
     if 'list_name' in request.form:
-        list.name = request.form['list_name']
-        db.session.add(list)
+        chosen_list.name = request.form['list_name']
+        db.session.add(chosen_list)
         db.session.commit()
-        return json.dumps({'status':'OK','list_name':list.name})
+        return json.dumps({'status':'OK','edited_list_name':chosen_list.name})
 
          
 @app.route('/deletelist/<int:id>', methods=["POST"])
 def delete_list(id):
-    list = List.query.get(id)
-    db.session.delete(list)
+    chosen_list = List.query.get(id)
+    db.session.delete(chosen_list)
     db.session.commit()
-    return redirect(url_for('profile'))
+    return json.dumps({'status':'OK','deleted_list':chosen_list.name})
 
 
-@app.route('/additem/<int:listid>', methods=["GET", "POST"])
+@app.route('/additem/<int:listid>', methods=["POST"])
 def add_item(listid):
     list = List.query.get(listid)
     user = User.query.filter_by(email = session['email']).first()
-    if request.method == 'GET':
-        return render_template('add_item.html', list=list)
-    elif request.method == 'POST':
+    if 'item_content' in request.form:
         item_content = request.form['item_content']
-        new_item = Item(content=item_content, list_id=list.id, user_id=user.id)
-        db.session.add(new_item)
-        db.session.commit()
-        return redirect(url_for('profile'))
-
-@app.route('/updateitem/<int:id>', methods=["GET"])
-def update_item(id):
-    item = Item.query.get(id)
-    return render_template('update_item.html', item=item)
+        if item_content != '':
+            new_item = Item(content=item_content, list_id=list.id, user_id=user.id)
+            db.session.add(new_item)
+            db.session.commit()
+            return json.dumps({'status': 'OK', 'new_item_content': new_item.content})
 
 
 @app.route('/renameitem/<int:id>', methods=["POST"])
@@ -125,7 +119,7 @@ def rename_item(id):
         item.content = request.form['item_content']
         db.session.add(item)
         db.session.commit()
-        return redirect(url_for('profile'))
+        return json.dumps({'status': 'OK', 'renamed_item': item.content})
 
 
 @app.route('/changestatus/<int:id>', methods=["POST"])
@@ -136,13 +130,16 @@ def change_status(id):
         item.is_done = True
         db.session.add(item)
         db.session.commit()
-        return redirect(url_for('profile'))
+        return json.dumps({'status': 'OK', 'item_content': item.content, 'is_completed': item.is_done})
+    else:
+        return False
         
 @app.route('/deleteitem/<int:id>', methods=["POST"])
 def delete_item(id):
     item = Item.query.get(id)
-    db.session.delete(item)
-    db.session.commit()
-    return redirect(url_for('profile'))
+    if item != None:
+        db.session.delete(item)
+        db.session.commit()
+        return json.dumps({'status': 'OK', 'deleted_item': item.content})
 
     
