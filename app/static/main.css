@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 
 .hidden {
-	display: none;
 	visibility: hidden;
+	display: none;
 }
