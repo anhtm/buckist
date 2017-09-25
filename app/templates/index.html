@@ -1,19 +1,42 @@
 {% extends "base.html" %}
-{% block content %}
-  <div class="jumbo">
-    <h2>Welcome to Buckist!<h2>
-    <h3>About Section<h3>
-    
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>    
-  </div>
-  
-  <div>
-    {% if not 'email' in session %}
-    <h3>New to Buckist? Sign Up now!</h3>
-    <a href="{{url_for('sign_up')}}">Sign Up</a> &nbsp;
-    <a href="{{url_for('sign_in')}}">Sign In</a>
+
+
+{% block banner %}
+<div class="hero is-primary is-bold is-large">
+
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title  is-size-1-mobile is-size-1-desktop">
+        Welcome to Buckist
+      </h1>
+      <h2 class="subtitle is-size-4-mobile is-size-4-desktop">
+        Where Your Dreams Are Saved
+      </h2>
+
+      <p class="content">Buckist, in short for bucket list, is a simple application that helps you keeping track of your personal wishes, bucket ideas and much more!</p> 
+
+      {% if not 'email' in session %}
+        <a class="button is-primary is-inverted" href="{{url_for('sign_in')}}">Sign In</a>
+        <a class="button is-primary inverted" href="{{url_for('sign_up')}}">Sign Up</a>
     {% endif %}
+    </div>
   </div>
+    
+</div>
+{% endblock %}
+
+
+{% block footer %}
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>Buckist</strong> by <a href="https://github.com/anhtm">@anhtm</a>.
+      </p>
+      <p>
+        <a class="icon" href="https://github.com/anhtm/buckist">
+          <i class="fa fa-github fa-2x"></i>
+        </a>
+      </p>
+    </div>
+</footer>
 {% endblock %}

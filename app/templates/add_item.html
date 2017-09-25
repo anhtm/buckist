@@ -1,21 +1,26 @@
 <div id="additem-modal" class="modal">
   <div class="modal-background"></div>
   <div class="modal-card box">
-    <header class="modal-card-head">
-      <h2 class="modal-card-title"> Add Item </h2>
-    </header>
     <section class="modal-card-body">
-      <div class="field">
-        <form class="add-item-form" role="form">
+      <form class="add-item-form" role="form">
+
+        <div class="field">
+          <label class="label is-medium">Add New Item To Your List</label>
           <div class="control">
-            <input class="input" type='text' name='item_content'  placeholder="Add Item" required> 
+            <input class="input" type='text' name='item_content'  placeholder="eg: Go to Italy" required> 
           </div>
+        </div>
+
+        <div class="field is-grouped">
           <div class="control">
             <button id="add-item-btn" class="button is-primary" type='submit' name='change_list_name' data-listId="">Add</button>
           </div>
-        </form>
-      </div>
-      <a class="button" id="close-additem-btn">Cancel</a>
+          <div class="control">
+            <a class="button is-light" id="close-additem-btn">Cancel</a>
+          </div>
+        </div>
+
+      </form>
     </section>
   </div>
 </div>

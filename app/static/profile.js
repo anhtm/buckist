@@ -3,6 +3,11 @@ $(document).ready(function() {
     // Initiate collapsible module
     $('.collapsible').collapsible();
 
+    // Navbar burger activate
+    $('.navbar-burger').click(function() {
+      $(this).addClass('is-active');
+    })
+
     // Delete list
     $('.delete-list').click(function() {
       var $list = $(this).closest('div.card');
