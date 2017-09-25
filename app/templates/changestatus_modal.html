@@ -1,23 +1,32 @@
 <div id="changestatus-modal" class="modal">
     <div class="modal-background"></div>
     <div class="modal-card box">
-      <header class="modal-card-head">
-        <h2 class="modal-card-title"> Change Item Status </h2>
-      </header>
+      
       <section class="modal-card-body">
-        <div class="field">
-          <form class="change-status-form" role="form">
-          <h2 class="subtitle"> Have you completed this?</h2>
+        <form class="change-status-form" role="form">
+
+          <div class="field">
+            <label class="label is-medium">Have you completed this?</label>
             <div class="control">
-              <input type="radio" name="status" value="no" checked> No<br>
-            <input type="radio" name="status" value="yes"> Yes<br>
+              <label class="radio">
+                <input type="radio" name="status" value="no" checked> No
+              </label>
+              <label class="radio">
+                <input type="radio" name="status" value="yes"> Yes
+              </label>
             </div>
+          </div>
+
+          <div class="field is-grouped">
             <div class="control">
               <button id="change-status-btn" class="button is-primary" type='submit' name='change_status'>Submit</button>
             </div>
-          </form>
-        </div>
-        <a class="button" id="close-cs-btn">Cancel</a>
+            <div class="control">
+              <a class="button" id="close-cs-btn">Cancel</a>
+            </div>
+          </div>
+        </form>
+        
       </section>
     </div>
   </div>

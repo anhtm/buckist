@@ -143,9 +143,14 @@ def change_status(id):
             db.session.add(item)
             db.session.commit()
             return json.dumps({'status': 'OK', 'item_content': item.content, 'is_completed': item.is_done})
-        return redirect(url_for('profile'))
-    return "You are not authenticated", 403
-        
+        else:
+            item.is_done = False
+            db.session.add(item)
+            db.session.commit()
+            return jsondumps({'status': 'OK', 'item_content': item.content, 'is_completed': item.is_done})
+    return "You're not authenticated", 403
+
+
 @app.route('/deleteitem/<int:id>', methods=["POST"])
 def delete_item(id):
     item = Item.query.get(id)

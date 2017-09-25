@@ -1,21 +1,27 @@
 <div id="editlist-modal" class="modal">
   <div class="modal-background"></div>
   <div class="modal-card box">
-    <header class="modal-card-head">
-      <h2 class="modal-card-title"> Edit List Name </h2>
-    </header>
     <section class="modal-card-body">
-      <div class="field">
-        <form class="rename-form" role="form">
+      <form class="rename-form" role="form">
+
+        <div class="field">
+          <label class="label is-medium"> Rename Your List</label>
           <div class="control">
-            <input id="inputListName" class="input" type='text' name='list_name'  placeholder="Change Your List Name" required> 
+            <input id="inputListName" class="input" type='text' name='list_name' placeholder="eg: My List" required> 
           </div>
+        </div>
+
+        <div class="field is-grouped">
           <div class="control">
             <button id="rename-btn" class="button is-primary" type='submit' name='change_list_name'>Edit</button>
           </div>
-        </form>
-      </div>
-      <a class="button" id="close-editlist-btn">Cancel</a>
+          <div class="control">
+            <a class="button is-light" id="close-editlist-btn">Cancel</a>
+          </div>
+        </div>
+
+      </form>
+      
     </section>
   </div>
 </div>
