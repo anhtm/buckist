@@ -4,3 +4,7 @@
 	visibility: hidden;
 	display: none;
 }
+
+.item-functions {
+	float: right;
+}

@@ -187,5 +187,20 @@ $(document).ready(function() {
       $("#changestatus-modal").removeClass("is-active");
     });
 
+
+    // Hover open functions
+    $('.item').hover(function() {
+      $(this).find('.item-functions').show();
+    }, function() {
+      $(this).find('.item-functions').hide();
+    });
+
+    // Hover open archived items
+    $('.archived-pointer').hover(function() {
+      $(this).find('.archived-items').show();
+    }, function() {
+      $(this).find('.archived-items').hide();
+    });
+
   });
   

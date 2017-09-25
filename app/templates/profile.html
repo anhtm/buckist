@@ -51,16 +51,11 @@
           <ul>
             {% for item in list.items %}
               {% if not item.is_done %}
-              
                <li id="{{item.id}}" class="item">
-
-                <div class="collapsible-header">
-                  {{item.content}} | {{ item.is_done}}
+                  {{item.content}}
 
                   <!-- Functions -->
                     {% include "item_functions.html" %}
-
-                </div>
               </li>
               {% endif %}
             {% endfor %}
@@ -69,32 +64,25 @@
 
 
           <!-- Completed Item -->
-        <div class="card-content">
-          <div class="collapsible" data-collapsible="accordion">
-            <div class="collapsible-header"
-              <h3 class="subtitle completed-items"> Completed </h3>
-            </div>
+        <div class="card-content archived-pointer">
+          <h3 class="subtitle"> Completed </h3>
+          <ul class="archived-items" hidden>
             {% for item in list.items %}
-              {% if item.is_done  %}
-              <div class="collapsible-body">
-                <ul>
+              {% if item.is_done  %}  
                 <li id="{{item.id}}" class="item">
-                  {{item.content}} | {{ item.is_done}}
+                  {{item.content}}
                 
                 <!-- Functions -->
                   {% include "item_functions.html" %}
                 </li>
-                </ul>
-              </div>
               {% endif %}
             {% endfor %}
-          </div>
-
+          </ul>
         </div>
 
         <!-- Add Item -->
         <footer class="card-content">
-          <a class="add-item" href="#additemPointer"> Add Item </a>
+          <a class="add-item" title="Add New Item"> <i class="fa fa-plus"></i></a>
         </footer>
 
       </div>
@@ -104,7 +92,7 @@
   </div>
 
   <!-- Add List -->
-  <a class="add-btn"> <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i></a>
+  <a class="add-btn" title="Add New List"> <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i></a>
 
 </div>
 {% endblock %}
