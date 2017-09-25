@@ -70,76 +70,103 @@ def profile():
 
 @app.route('/newlist', methods=["POST"])
 def add_list():
-
     user = User.query.filter_by(email = session['email']).first()
-    if 'newlist_name' in request.form:
+    if user and 'newlist_name' in request.form:
         list_name = request.form['newlist_name']
         if list_name != '':
             new_list = List(name=list_name, user_id=user.id)
             db.session.add(new_list)
             db.session.commit()
             return json.dumps({'status':'OK','new_list_name':new_list.name})
+        return 'Your input is empty!'
+    return 'You are not authenticated', 403
 
     
 @app.route('/renamelist/<int:id>', methods=["POST"])
 def rename_list(id):
     chosen_list = List.query.get(id)
-    if 'list_name' in request.form:
+    if (chosen_list and is_authenticated(session, chosen_list)) and 'list_name' in request.form:
         chosen_list.name = request.form['list_name']
-        db.session.add(chosen_list)
-        db.session.commit()
-        return json.dumps({'status':'OK','edited_list_name':chosen_list.name})
+        if chosen_list.name != '':
+            db.session.add(chosen_list)
+            db.session.commit()
+            return json.dumps({'status':'OK','edited_list_name':chosen_list.name})
+        return 'Your input is empty!'
+    return 'You are not authenticated', 403
 
          
 @app.route('/deletelist/<int:id>', methods=["POST"])
 def delete_list(id):
     chosen_list = List.query.get(id)
-    db.session.delete(chosen_list)
-    db.session.commit()
-    return json.dumps({'status':'OK','deleted_list':chosen_list.name})
+    if chosen_list and is_authenticated(session, chosen_list):
+        db.session.delete(chosen_list)
+        db.session.commit()
+        return json.dumps({'status':'OK','deleted_list':chosen_list.name})
+    return "You are not authenticated", 403
 
 
 @app.route('/additem/<int:listid>', methods=["POST"])
 def add_item(listid):
-    list = List.query.get(listid)
+    the_list = List.query.get(listid)
     user = User.query.filter_by(email = session['email']).first()
-    if 'item_content' in request.form:
+    if (the_list and is_authenticated(session, the_list)) and 'item_content' in request.form:
         item_content = request.form['item_content']
         if item_content != '':
-            new_item = Item(content=item_content, list_id=list.id, user_id=user.id)
+            new_item = Item(content=item_content, list_id=the_list.id, user_id=user.id)
             db.session.add(new_item)
             db.session.commit()
             return json.dumps({'status': 'OK', 'new_item_content': new_item.content})
+        return "Your Input Is Empty!"
+    return "You are not authenticated", 403
 
 
 @app.route('/renameitem/<int:id>', methods=["POST"])
 def rename_item(id):
     item = Item.query.get(id)
-    if 'item_content' in request.form:
+    if (item and is_authenticated(session,item)) and 'item_content' in request.form:
         item.content = request.form['item_content']
-        db.session.add(item)
-        db.session.commit()
-        return json.dumps({'status': 'OK', 'renamed_item': item.content})
+        if item.content != '':
+            db.session.add(item)
+            db.session.commit()
+            return json.dumps({'status': 'OK', 'renamed_item': item.content})
+        return 'Your Input Is Empty!'
+    return "You are not authenticated", 403
 
 
 @app.route('/changestatus/<int:id>', methods=["POST"])
 def change_status(id):
     item = Item.query.get(id)
     status = request.form['status']
-    if status == 'yes': 
-        item.is_done = True
-        db.session.add(item)
-        db.session.commit()
-        return json.dumps({'status': 'OK', 'item_content': item.content, 'is_completed': item.is_done})
-    else:
-        return False
+    if item and is_authenticated(session, item):
+        if status == 'yes': 
+            item.is_done = True
+            db.session.add(item)
+            db.session.commit()
+            return json.dumps({'status': 'OK', 'item_content': item.content, 'is_completed': item.is_done})
+        return redirect(url_for('profile'))
+    return "You are not authenticated", 403
         
 @app.route('/deleteitem/<int:id>', methods=["POST"])
 def delete_item(id):
     item = Item.query.get(id)
-    if item != None:
+    if item and is_authenticated(session, item):
         db.session.delete(item)
         db.session.commit()
         return json.dumps({'status': 'OK', 'deleted_item': item.content})
+    return "You're not authenticated", 403
 
     
+def is_authenticated(session, resource=None):
+
+    if not 'email' in session:
+        return False
+
+    user = User.query.filter_by(email = session['email']).first()
+    # if user:
+    #     if not resource:
+    #         return True
+    #     else:
+    #         if resource.user_id == user.id:
+    #             return True
+    return (user and ((not resource) or (resource.user_id == user.id)))
+
