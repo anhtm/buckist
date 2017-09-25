@@ -4,42 +4,68 @@
 {% block content %}
 
   <h2 class="title">Sign up</h2>
- 
-  {% for message in form.firstname.errors %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-   
-  {% for message in form.lastname.errors %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-   
-  {% for message in form.email.errors %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-   
-  {% for message in form.password.errors %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
    
   <form action="{{ url_for('sign_up') }}" method="post">
+
     {{ form.hidden_tag() }}
-     
-    {{ form.firstname.label }}
-    <br>
-    {{ form.firstname }}
-    <br>
-    {{ form.lastname.label }}
-    <br>
-    {{ form.lastname }}
-    <br>
-    {{ form.email.label }}
-    <br>
-    {{ form.email }}
-    <br>
-    {{ form.password.label }}
-    <br>
-    {{ form.password }}
-    <br>
-    <input type="submit" value="Create Account">
+    
+    <div class="field">
+      <label class="label is-medium"> {{ form.firstname.label }} </label>
+      <div class="control has-icons-left">
+        {{ form.firstname(class_="input is-medium") }}
+        <span class="icon is-small is-left">
+          <i class="fa fa-user"></i>
+        </span>
+      </div>
+      {% for message in form.firstname.errors %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="field">
+      <label class="label is-medium">{{ form.lastname.label }}</label>
+      <div class="control has-icons-left">
+        {{ form.lastname(class_="input is-medium") }}
+        <span class="icon is-small is-left">
+          <i class="fa fa-user"></i>
+        </span>
+      </div>
+      {% for message in form.lastname.errors %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="field">
+      <label class="label is-medium">{{ form.email.label }}</label>
+      <div class="control has-icons-left">
+        {{ form.email(class_="input is-medium") }}
+        <span class="icon is-small is-left">
+          <i class="fa fa-envelope"></i>
+        </span>
+      </div>
+      {% for message in form.email.errors %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="field">
+      <label class="label is-medium">{{ form.password.label }}</label>
+      <div class="control has-icons-left">
+        {{ form.password(class_="input is-medium") }}
+        <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+        </span>
+      </div>
+      {% for message in form.password.errors %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <input type="submit" class="button is-primary" value="Create Account">
+      </div>
+    </div>
+    
   </form>
 {% endblock %}

@@ -19,7 +19,7 @@ def sign_up():
             return render_template('signup.html', form=form)
         elif request.method == "POST":
             if form.validate() == False:
-                return render_tepmlate('signup.html', form=form)
+                return render_template('signup.html', form=form)
             else:
                 newuser = User(form.firstname.data, form.lastname.data, form.email.data, form.password.data)
                 db.session.add(newuser)

@@ -1,28 +1,44 @@
 {% extends "base.html" %}
  
 {% block content %}
-  <h2 class="title">Sign In</h2>
- 
-  {% for message in form.email.errors %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-   
-  {% for message in form.password.errors %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-   
-  <form action="{{ url_for('sign_in') }}" method=post>
-    {{ form.hidden_tag() }}
-     
-    {{ form.email.label }}
-    <br>
-    {{ form.email }}
-    <br> 
-    {{ form.password.label }}
-    <br>
-    {{ form.password }}
-    <br>
-    <input type="submit" value="Create Account">
-  </form>
+  <h2 class="title">Sign In</h2> 
+  
+    <form action="{{ url_for('sign_in') }}" method=post>
+    
+      {{ form.hidden_tag() }}
+
+      <div class="field"> 
+        <label class="label is-medium">{{ form.email.label }}</label>
+        <div class="control has-icons-left">
+          {{ form.email(class_="input is-medium") }}
+          <span class="icon is-small is-left">
+            <i class="fa fa-envelope"></i>
+          </span>
+        </div>
+        {% for message in form.email.errors %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="field">
+        <lable class="label is-medium">{{ form.password.label }}</lable>
+        <div class="control has-icons-left">
+          {{ form.password(class_="input is-medium")}}
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
+        </div>
+        {% for message in form.password.errors %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input type="submit" class="button is-primary" value="Sign In">
+        </div>
+      </div>
+
+    </form>
      
 {% endblock %}
