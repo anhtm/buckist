@@ -2,9 +2,10 @@
  
 {% block main %}
   <div class="section">
-  <h2 class="title">Sign In</h2> 
+    <div class="container">
+      <h2 class="title">Sign In</h2> 
   
-    <form action="{{ url_for('sign_in') }}" method=post>
+      <form action="{{ url_for('sign_in') }}" method=post>
     
       {{ form.hidden_tag() }}
 
@@ -41,6 +42,7 @@
       </div>
 
     </form>
+    </div>
     </div>
      
 {% endblock %}
