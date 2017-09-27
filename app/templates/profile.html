@@ -2,9 +2,11 @@
 {% block main %}
 
 {% block content %}
-<div class="section">
-  <h3 class="title">Hi {{ user.first_name }}, Welcome Back!</h3>
-</div>
+  <div class="container">
+    <h3 class="title is-4">Hi {{ user.first_name }}, Welcome Back!</h3>
+  </div>
+
+<br>
 
 <div class="lists container">
   <!-- Lists -->
@@ -12,7 +14,7 @@
 
     {% for list in lists %}
     <div class="column is-one-third">
-      <div class="card a-list">
+      <div class="card a-list box">
 
       <!-- List Header -->
         <header class="card-header">
@@ -64,9 +66,9 @@
 
 
           <!-- Completed Item -->
-          <hr>
+          <!-- <hr> -->
         <div class="card-content archived-pointer">
-          <h3 class="subtitle"> Completed </h3>
+          <!-- <h3 class="subtitle"> Completed </h3> -->
           <ul class="archived-items" hidden>
             {% for item in list.items %}
               {% if item.is_done  %}  

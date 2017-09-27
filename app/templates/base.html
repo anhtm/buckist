@@ -16,36 +16,36 @@
     <nav class="navbar is-primary">
       <div class="navbar-brand">
         <div class="navbar-item">
-          <a href="{{url_for('index')}}" class="title">Buckist</a>
+          <a href="{{url_for('index')}}" class="title is-size-1-desktop is-size-1-touch">Buckist</a>
         </div>
         
-        <button class="button navbar-burger">
-          <span><a class="navbar-item" href="{{ url_for('index') }}">Home</a></span>
-          {% if 'email' in session %}
-            <span><a class="navbar-item" href="{{ url_for('profile') }}">Profile</a></span>
-            <span><a class="navbar-item" href="{{ url_for('sign_out') }}">Sign Out</a></span>
-          {% else %}
-            <span><a class="navbar-item" href="{{ url_for('sign_up') }}">Sign Up</a></span>
-            <span><a class="navbar-item" href="{{ url_for('sign_in') }}">Sign In</a></span>
-          {% endif %}
+        <button class="button navbar-burger burger" data-target="my-menu">
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
 
       </div>
 
-      <div class="navbar-menu">
+      <div id="my-menu" class="navbar-menu">
         <div class="navbar-end">
-            <a class="navbar-item" href="{{ url_for('index') }}">Home</a>
+            <a class="navbar-item" href="{{ url_for('index') }}"><i class="fa fa-home" aria-hidden="true"></i></a>
             {% if 'email' in session %}
-            <a class="navbar-item" href="{{ url_for('profile') }}">Profile</a>
-            <a class="navbar-item" href="{{ url_for('sign_out') }}">Sign Out</a>
-            {% else %}
-            <a class="navbar-item" href="{{ url_for('sign_up') }}">Sign Up</a>
-            <a class="navbar-item" href="{{ url_for('sign_in') }}">Sign In</a>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                <a class="navbar-item" href="{{ url_for('profile') }}">Dashboard</a>
+                <a class="navbar-item" href="{{ url_for('sign_out') }}">Sign Out</a>
+              </div>
+            </div>
+            
             {% endif %}
           </div>
       </div>
     </nav>
-      </div>
+  </div>
     </div>
   </header>
  
