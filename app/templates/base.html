@@ -2,7 +2,8 @@
 <html>
   <head>
     <title>Buckist</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    {% block stylesheet %}
+    {% endblock %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css">
   </head>
@@ -10,13 +11,13 @@
   <body>
  
   <header>
-  <div class="section">
+  <div id="header">
     <div class="container">
     
     <nav class="navbar is-primary">
       <div class="navbar-brand">
         <div class="navbar-item">
-          <a href="{{url_for('index')}}" class="title is-size-1-desktop is-size-1-touch">Buckist</a>
+          <a href="{{url_for('index')}}" class="title is-size-2-desktop is-size-2-touch">Buckist</a>
         </div>
         
         <button class="button navbar-burger burger" data-target="my-menu">
@@ -40,7 +41,9 @@
                 <a class="navbar-item" href="{{ url_for('sign_out') }}">Sign Out</a>
               </div>
             </div>
-            
+            {% else %}
+            <a class="navbar-item" href="{{ url_for('sign_in') }}">Sign In</a>
+            <a class="navbar-item" href="{{ url_for('sign_up') }}">Sign Up</a>
             {% endif %}
           </div>
       </div>
@@ -73,6 +76,10 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-  <script type="text/javascript" src="/static/profile.js"></script>
+  <script type="text/javascript" src="/static/base.js"></script>
+
+  {% block script %}
+  {% endblock %}
+  
 </body>
 </html>

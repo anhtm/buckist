@@ -1,0 +1,19 @@
+#banner-title {
+	padding-bottom: 8px;
+}
+
+#banner-subtitle, #banner-intro {
+	padding-bottom: 16px;
+}
+
+div.content {
+	padding: 2rem;
+}
+
+#header {
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+
+

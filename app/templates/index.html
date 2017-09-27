@@ -1,23 +1,27 @@
 {% extends "base.html" %}
 
+{% block stylesheet %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
+
 
 {% block banner %}
 <div class="hero is-primary is-bold is-large">
 
   <div class="hero-body">
-    <div class="container">
-      <h1 class="title  is-size-1-mobile is-size-1-desktop">
+    <div class="container has-text-centered">
+      <h1 id="banner-title" class="title is-size-2-mobile is-size-1-desktop is-size-1-tablet">
         Welcome to Buckist
       </h1>
-      <h2 class="subtitle is-size-4-mobile is-size-4-desktop">
+      <h2 id="banner-subtitle" class="subtitle is-size-4-mobile is-size-4-desktop">
         Where Your Dreams Are Saved
       </h2>
 
-      <p class="content">Buckist, in short for bucket list, is a simple application that helps you keeping track of your personal wishes, bucket ideas and much more!</p> 
+      <p class="content is-size-6" id="banner-intro">Buckist, in short for bucket list, is a simple application that helps you keeping track of your personal wishes, bucket ideas and much more!</p> 
 
       {% if not 'email' in session %}
-        <a class="button is-primary is-inverted" href="{{url_for('sign_in')}}">Sign In</a>
-        <a class="button is-primary inverted" href="{{url_for('sign_up')}}">Sign Up</a>
+        <a id="signin-btn" class="button is-primary is-inverted is-outlined" href="{{url_for('sign_in')}}">Sign In</a>
+        <a id="signup-btn" class="button is-primary" href="{{url_for('sign_up')}}">Sign Up</a>
     {% endif %}
     </div>
   </div>
@@ -27,7 +31,7 @@
 
 
 {% block footer %}
-  <footer class="footer">
+  <footer id="footer">
     <div class="content has-text-centered">
       <p>
         <strong>Buckist</strong> by <a href="https://github.com/anhtm">@anhtm</a>.

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
  
-{% block content %}
+{% block main %}
+  <div class="section">
   <h2 class="title">Sign In</h2> 
   
     <form action="{{ url_for('sign_in') }}" method=post>
@@ -32,7 +33,7 @@
           <div class="flash">{{ message }}</div>
         {% endfor %}
       </div>
-
+      <br>
       <div class="field">
         <div class="control">
           <input type="submit" class="button is-medium is-primary" value="Sign In">
@@ -40,5 +41,6 @@
       </div>
 
     </form>
+    </div>
      
 {% endblock %}
