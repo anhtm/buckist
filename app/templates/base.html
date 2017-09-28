@@ -2,8 +2,10 @@
 <html>
   <head>
     <title>Buckist</title>
+
     {% block stylesheet %}
     {% endblock %}
+
     <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css">
@@ -43,8 +45,15 @@
               </div>
             </div>
             {% else %}
-            <a class="navbar-item" href="{{ url_for('sign_in') }}">Sign In</a>
-            <a class="navbar-item" href="{{ url_for('sign_up') }}">Sign Up</a>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                <a class="navbar-item" href="{{ url_for('sign_up') }}">Sign Up</a>
+                <a class="navbar-item" href="{{ url_for('sign_in') }}">Sign In</a>
+              </div>
+            </div>
             {% endif %}
           </div>
       </div>
@@ -59,7 +68,8 @@
     </div>
 
 
-    <div class="">
+
+    <div id="">
     {% block main %}
 
       {% block content %}

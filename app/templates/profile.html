@@ -10,32 +10,32 @@
 {% block content %}
 <div class="section">
   <div class="container">
-    <h3 class="title is-4">Hi {{ user.first_name }}, Welcome Back!</h3>
-  </div>
+    <h3 id="welcome-mes" class="title is-spaced is-4">Hi {{ user.first_name }}, Welcome Back!</h3>
+  
 
-<br>
+<hr>
 
-<div class="lists container">
+<div class="lists">
   <!-- Lists -->
   <div class="columns is-multiline">
 
     {% for list in lists %}
     <div class="column is-one-third">
-      <div class="card a-list box">
+
+      <div class="card a-list">
 
       <!-- List Header -->
         <header class="card-header">
-          <p id="{{list.id}}" class="card-header-title">{{list.name}}</p>
+          <p id="{{list.id}}" class="is-size-4-desktop is-size-4-tablet is-size-5-mobile card-header-title">{{list.name}}</p>
 
           <!-- Dropdown V button -->
-          <div class="dropdown is-hoverable">
-            <div class="dropdown-trigger">
-              <button class="button is-white" aria-haspopup="true" aria-controls="dropdown-menu">
-                <a class="card-header-icon">
+          <span class="dropdown is-hoverable">
+            <span class="dropdown-trigger card-header-icon" aria-controls="dropdown-menu">              
+                <a>
                   <span class="icon"> <i class="fa fa-angle-down"></i> </span>
                 </a>
-              </button>
-            </div>
+              </span>
+           
 
             <!-- Dropdown Menu & functions -->
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
@@ -50,33 +50,37 @@
                 <a href="#" class="dropdown-item">Share</a>
               </div>
             </div>
-          </div>
+             </span>
+          
         </header>
 
         <!-- Items -->
         <div class="card-content">
+          <a class="button is-white is-outlined archived-pointer"> Show Items </a>
 
         <!-- Item Content - NOT COMPLETED -->
-          <ul>
+          <!-- <ul> -->
             {% for item in list.items %}
               {% if not item.is_done %}
-               <li id="{{item.id}}" class="item">
+               <p id="{{item.id}}" class="item hidden">
                   {{item.content}}
 
                   <!-- Functions -->
                     {% include "item_functions.html" %}
-              </li>
+              </p>
               {% endif %}
             {% endfor %}
-          </ul>
+          <!-- </ul> -->
       </div>
 
 
           <!-- Completed Item -->
           <!-- <hr> -->
-        <div class="card-content archived-pointer">
-          <!-- <h3 class="subtitle"> Completed </h3> -->
-          <ul class="archived-items" hidden>
+        <div class="card-content">
+          
+          <a class="button is-white is-outlined archived-pointer"> Archived </a>
+
+          <ul class="archived-items hidden">
             {% for item in list.items %}
               {% if item.is_done  %}  
                 <li id="{{item.id}}" class="item">
@@ -88,22 +92,25 @@
               {% endif %}
             {% endfor %}
           </ul>
+          
         </div>
 
         <!-- Add Item -->
         <footer class="card-content">
-          <a class="add-item" title="Add New Item"> <i class="fa fa-plus"></i></a>
+          <a class="add-item has-text-white" title="Add New Item"> <i class="fa fa-plus"></i></a>
         </footer>
 
       </div>
+      
     </div>
     {% endfor %}
 
   </div>
 
   <!-- Add List -->
-  <a class="add-btn" title="Add New List"> <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i></a>
+  <a class="add-btn" title="Add New List"> <span class="icon is-large"> <i class="fa fa-plus-circle" aria-hidden="true"></i> </span> </a>
 
+</div>
 </div>
 </div>
 {% endblock %}

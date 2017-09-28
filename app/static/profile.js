@@ -200,11 +200,9 @@ $(document).ready(function() {
       $(this).find('.item-functions').hide();
     });
 
-    // Hover open archived items
-    $('.archived-pointer').hover(function() {
-      $(this).find('.archived-items').show();
-    }, function() {
-      $(this).find('.archived-items').hide();
+
+    $('.archived-pointer').click(function() {
+      $(this).siblings().toggleClass('hidden');
     });
 
   });

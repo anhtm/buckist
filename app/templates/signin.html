@@ -2,8 +2,8 @@
  
 {% block main %}
   <div class="section">
-    <div class="container">
-      <h2 class="title">Sign In</h2> 
+    <div class="container box" id="signin-box">
+      <h2 class="title is-size-2-desktop is-size-3-mobile has-text-centered">Sign In</h2> 
   
       <form action="{{ url_for('sign_in') }}" method=post>
     
@@ -36,8 +36,8 @@
       </div>
       <br>
       <div class="field">
-        <div class="control">
-          <input type="submit" class="button is-medium is-primary" value="Sign In">
+        <div class="control has-text-centered">
+          <input type="submit" class="button is-medium is-primary" value="Submit">
         </div>
       </div>
 

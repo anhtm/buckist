@@ -9,10 +9,42 @@
 	float: right;
 }
 
+.card.a-list {
+	margin-right: 1.2rem;
+	margin-top: 1.2rem;
+}
 
-.a-list.box {
-	background-color: grey !important;
+.item {
+	border: 1px solid white !important;
+	background-color: white;
+	border-radius: 5px !important;
+	padding: 10px 10px  !important;
+	margin-bottom: 12px;
+	margin-top: 12px;
+}
+
+.card-header {
+	border: none !important;
 }
 
 
+.add-btn {
+	margin-top: 2rem;
+}
 
+.archive-pointer {
+	border: 1px solid black !important;
+	border-radius: 10px !important;
+}
+
+.card-content {
+	background-color: #42AB9E !important
+}
+
+p.card-header-title {
+	padding: 20px;
+}
+
+#welcome-mes {
+	margin-bottom: 24px;
+}

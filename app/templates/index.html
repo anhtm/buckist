@@ -14,14 +14,15 @@
         Welcome to Buckist
       </h1>
       <h2 id="banner-subtitle" class="subtitle is-size-4-mobile is-size-4-desktop">
-        Where Your Dreams Are Saved
+        Where Your Dreams Are Kept
       </h2>
 
-      <p class="content is-size-6" id="banner-intro">Buckist, in short for bucket list, is a simple application that helps you keeping track of your personal wishes, bucket ideas and much more!</p> 
+      <p class="content is-size-5" id="banner-intro">
+        <strong>Buckist</strong>, in short for <strong>bucket list</strong>, is a simple application that helps keeping track of your personal wishes, bucket ideas and much more!</p> 
 
       {% if not 'email' in session %}
-        <a id="signin-btn" class="button is-primary is-inverted is-outlined" href="{{url_for('sign_in')}}">Sign In</a>
-        <a id="signup-btn" class="button is-primary" href="{{url_for('sign_up')}}">Sign Up</a>
+        <a id="signup-btn" class="button is-primary is-inverted is-outlined" href="{{url_for('sign_up')}}">Sign Up</a>
+        <a id="signin-btn" class="button is-primary" href="{{url_for('sign_in')}}">Sign In</a>
     {% endif %}
     </div>
   </div>
@@ -34,10 +35,10 @@
   <footer id="footer">
     <div class="content has-text-centered">
       <p>
-        <strong>Buckist</strong> by <a href="https://github.com/anhtm">@anhtm</a>.
+        <strong>Buckist</strong> by <a title="See Me On LinkedIn" href="https://www.linkedin.com/in/anhtm/">@anhtm</a>.
       </p>
       <p>
-        <a class="icon" href="https://github.com/anhtm/buckist">
+        <a title="Buckist Github Page" class="icon" href="https://github.com/anhtm/buckist">
           <i class="fa fa-github fa-2x"></i>
         </a>
       </p>

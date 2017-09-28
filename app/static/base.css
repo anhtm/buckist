@@ -2,3 +2,9 @@
 	padding-top: 2rem;
 	padding-bottom: 2rem;
 }
+
+#signin-box, #signup-box {
+	border: 2px solid #363636;
+	padding: 4rem 2rem;
+	border-radius: 10px;
+}
