@@ -17,8 +17,8 @@
 .item {
 	border: 1px solid white !important;
 	background-color: white;
-	border-radius: 5px !important;
-	padding: 10px 10px  !important;
+	border-radius: 16px !important;
+	padding: 10px 15px  !important;
 	margin-bottom: 12px;
 	margin-top: 12px;
 }
@@ -32,13 +32,13 @@
 	margin-top: 2rem;
 }
 
-.archive-pointer {
-	border: 1px solid black !important;
-	border-radius: 10px !important;
+.archived-pointer {
+	border-radius: 16px !important;
+	margin-bottom: 12px;
 }
 
 .card-content {
-	background-color: #42AB9E !important
+	background-color: #00d1b2 !important;
 }
 
 p.card-header-title {

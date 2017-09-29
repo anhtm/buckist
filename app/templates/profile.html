@@ -10,7 +10,7 @@
 {% block content %}
 <div class="section">
   <div class="container">
-    <h3 id="welcome-mes" class="title is-spaced is-4">Hi {{ user.first_name }}, Welcome Back!</h3>
+    <h3 id="welcome-mes" class="title is-spaced is-3">Hi, {{ user.first_name }}!</h3>
   
 
 <hr>
@@ -41,13 +41,13 @@
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
               <div class="dropdown-content">
 
-                <a class="dropdown-item edit-list">Edit</a>
+                <a class="dropdown-item edit-list">
+                  <span class="icon is-small"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></span> Edit</a>
 
                 <!-- Delete list -->
-                <a id="delete-list" class="delete-list dropdown-item"> Delete </a>
+                <a id="delete-list" class="delete-list dropdown-item">
+                  <span class="icon is-small"> <i class="fa fa-trash fa-fw" aria-hidden="true"></i> </span> Delete </a>
 
-                <!-- Share -->
-                <a href="#" class="dropdown-item">Share</a>
               </div>
             </div>
              </span>
@@ -56,21 +56,21 @@
 
         <!-- Items -->
         <div class="card-content">
-          <a class="button is-white is-outlined archived-pointer"> Show Items </a>
+          <a class="button is-white archived-pointer"> Items </a>
 
         <!-- Item Content - NOT COMPLETED -->
-          <!-- <ul> -->
+          <ul class="hidden">
             {% for item in list.items %}
               {% if not item.is_done %}
-               <p id="{{item.id}}" class="item hidden">
+               <li id="{{item.id}}" class="item">
                   {{item.content}}
 
                   <!-- Functions -->
                     {% include "item_functions.html" %}
-              </p>
+              </li>
               {% endif %}
             {% endfor %}
-          <!-- </ul> -->
+          </ul>
       </div>
 
 
@@ -78,9 +78,9 @@
           <!-- <hr> -->
         <div class="card-content">
           
-          <a class="button is-white is-outlined archived-pointer"> Archived </a>
+          <a class="button has-text-uppercased is-white archived-pointer"> Archived </a>
 
-          <ul class="archived-items hidden">
+          <ul class="hidden">
             {% for item in list.items %}
               {% if item.is_done  %}  
                 <li id="{{item.id}}" class="item">
@@ -108,6 +108,7 @@
   </div>
 
   <!-- Add List -->
+  <br>
   <a class="add-btn" title="Add New List"> <span class="icon is-large"> <i class="fa fa-plus-circle" aria-hidden="true"></i> </span> </a>
 
 </div>
